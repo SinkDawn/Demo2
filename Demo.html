@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>实验3</title>
+    <style>
+        *,
+        body {
+            /* 取消默认的margin和padding */
+            margin: 0;
+            padding: 0;
+        }
+
+        .head {
+            width: 100%;                            /* 设置宽度占比 */
+            height: 75px;                           /* 设置高度 */
+            background-color: rgb(199, 53, 9);      /* 设置背景色 */
+        }
+
+        .title {
+            /* 设置title样式 */
+            line-height: 75px;              /* 设置行高 */
+            text-align: center;             /* 文字水平居中 */
+            color: rgb(255, 255, 255);    /* 设置字体颜色 */
+            height: 75px;                   /* 设置文字高度 */
+            font-size: 30px;                /* 设置文字大小 */
+        }
+
+        .tag {
+            /* 设置导航栏样式 */
+            height: 150px;                          /* 设置高度 */
+            background-color: rgb(20, 142, 223);    /* 设置背景色 */
+            display: flex;                          /* flex布局 */
+            align-items: center;                    /* flex垂直居中 */
+            justify-content: space-evenly;          /* flex水平居中*/
+        }
+
+        .tag a {
+            /* 设置导航栏字体样式 */
+            color: #000;        /* 设置字体颜色 */
+            font-size: 20px;    /* 设置字体大小 */
+            text-align: center; /* 设置文字水平居中 */
+        }
+
+        .part1 {
+            /* 设置主体1的样式 */
+            background-image: url("images/background.png");   /* 设置背景图 */
+            background-size: 100% 100%;                             /* 设置大小占比 */
+            background-repeat: no-repeat;                           /* 设置为不重复 */
+        }
+
+        ul li {
+            /* 取消列表的默认格式 */
+            list-style: none;
+        }
+
+        .part1_scroll {
+            /* 设置主体1中滚动条样式 */
+            width: 1000px;                      /* 设置宽度 */
+            height: 200px;                      /* 设置高度 */
+            box-shadow: 10px 10px 5px black;    /* 设置阴影 */
+            margin: 10px auto;                  /* 设置margin */
+            overflow: hidden;                   /* 将超出的部分隐藏 */
+        }
+
+        .part1_scroll ul li {
+            /* 设置列表样式 */
+            float: left;    /* 向左漂移 */
+        }
+        .part1_scroll ul {
+            /* 设置列表样式 */
+            width: 200%;                        /* 设定宽度 */
+            animation: lb 5s linear infinite;   /* 设置lb动画 时长5s 线性 无限循环 */
+        }
+        @keyframes lb {
+            /* 设置动画 */
+            0% {margin-left: 0;}
+            100% {margin-left: -800px;}
+        }
+
+        .part1_box {
+            /* 设置主体1中box的样式 */
+            margin: 50px auto;                      /* 设置margin */
+            overflow: hidden;                       /* 超出的部分隐藏掉 */
+            width: 800px;                           /* 设置宽度 */
+            height: 900px;                          /* 设置高度 */
+            background-color: rgb(17, 184, 235);    /* 设置背景色 */
+            border: 1px solid #000;                 /* 设置边框 */
+            border-radius: 10px;                    /* 设置边框圆角 */
+            display: grid;                          /* 设置grid布局 */
+            grid-template-columns: repeat(3, 1fr);  /* 三列均分 */
+            grid-template-rows: repeat(3, 1fr);     /* 三行均分 */
+            place-items: center;                    /* 沿着对齐容器的中心对齐 */
+            grid-template-areas: 'a1 a2 a3'         /* 指定网格布局中的区域 */
+                                'a4 a5 a6'
+                                'a7 a8 a9';
+        }
+        .part1_box div:nth-child(1) {grid-area: a1;}
+        .part1_box div:nth-child(2) {grid-area: a2;}
+        .part1_box div:nth-child(3) {grid-area: a3;}
+        .part1_box div:nth-child(4) {grid-area: a4;}
+        .part1_box div:nth-child(5) {grid-area: a5;}
+        .part1_box div:nth-child(6) {grid-area: a6;}
+        .part1_box div:nth-child(7) {grid-area: a7;}
+        .part1_box div:nth-child(8) {grid-area: a8;}
+        .part1_box div:nth-child(9) {grid-area: a9;}
+
+        .part1_box_centerbg {
+            /* 设置主体1的box中中心的背景样式 */
+            margin: 50px auto;
+            overflow: hidden;
+            width: 200px;
+            height: 200px;
+            background-color: rgb(245, 9, 9);
+            border: 1px solid white;
+            border-radius: 10px;                    /* 设置边框圆角 */
+            display: flex;                          /* 设置flex布局 */
+            justify-content: center;                /* flex水平居中*/
+            align-items: center;                    /* flex垂直居中 */
+        }
+        .part1_box_centerbutton {
+            /* 设置主体1的box中中心的按钮样式 */
+            box-shadow: 0 0 15px white;     /* 设置按钮阴影 */
+            border-radius: 10px;            /* 设置边框圆角 */
+            color: #fff;                    /* 设置字体颜色 */
+            font-size: 40px;                /* 设置字体大小 */
+            background: linear-gradient(to right, yellow, red, yellow);
+            /* 设置按钮背景色 */
+        }
+        .part1_box_centercontainer>div {
+            transition: all 0.5s;   /* 设置过渡动画 时长0.5秒*/
+        }
+        .part1_box_centercontainer div:hover {
+            opacity: 0.6;
+            transform: scale(0.90);
+            cursor: pointer;
+        }
+
+        .part1_box_imagebg {
+            /* 设置主体1的box中图片的整体样式 */
+            box-shadow: 0 0 15px #000;      /* 设置阴影 */
+            text-align: center;             /* 文字水平居中 */
+            display: flex;                  /* 设置flex布局 */
+            flex-direction: column;         /* 布局方向设置为竖向排列 */
+        }
+        .part1_box_imagebutton {
+            /* 设置主体1的box中图片下方按钮的样式 */
+            width: 150px;                       /* 设置宽度 */
+            height: 35px;                       /* 设置高度 */
+            color: #fff;                        /* 设置字体颜色 */
+            background: linear-gradient(to right, orange, red, green, blue);/* 设置背景色 */
+            background-size: 200%;              /* 设置背景色尺寸 */
+            animation: color 4s infinite;       /* 设置color动画 时长4秒 无限循环 */
+            display: flex;                      /* 设置flex布局 */
+            justify-content: center;            /* flex水平居中*/
+            align-items: center;                /* flex垂直居中 */
+        }
+        @keyframes color {
+            0% {background-position: 0 0;}
+            50% {background-position: 100% 100%;}
+            100% {background-position: 0 0;}
+        }
+
+        .part2 {
+            /* 设置主体2的背景样式 */
+            background-color: #eee;
+            /* 设置背景色 */
+        }
+        .part2_image {
+            /* 设置主体2中图片容器的样式 */
+            width: 960px;
+            height: 500px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .part2_image>img {
+            /* 设置主体2中图片容器中 */
+            width: 150px;               /* 设置宽度 */
+            padding: 5px;               /* 设置padding */
+            border: 1px solid #ddd;     /* 设置边框 */
+            background-color: #fff;     /* 设置背景色 */
+            position: absolute;         /* 设置为绝对位置 */
+            transition: all 2s;         /* 设置过渡动画 时长2秒*/
+        }
+        .part2_image>img:nth-child(1) {
+            /* 设置主体2中图片样式，其余类似 */
+            top: 0;
+            right: 200px;
+            transform: rotate(0deg);
+        }
+        .part2_image>img:nth-child(2) {
+            top: 200px;
+            left: 360px;
+            transform: rotate(-10deg);
+        }
+        .part2_image>img:nth-child(3) {
+            bottom: 50px;
+            left: -100px;
+            transform: rotate(15deg);
+        }
+        .part2_image>img:nth-child(4) {
+            top: 0;
+            left: 100px;
+            transform: rotate(-25deg);
+        }
+        .part2_image>img:nth-child(5) {
+            top: 126px;
+            right: -30px;
+            transform: rotate(20deg);
+        }
+        .part2_image>img:hover {
+            transform: scale(1.2);
+            box-shadow: 0 15px 30px #999;
+        }
+
+
+        .part3 {
+            height: 100vh;
+            width: 100vw;
+            font-size: 60px;
+            margin-top: 100px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(4, 1fr);
+            grid-template-areas: 'a1 a1 a1 a1'
+                'a2 a3 a4 a5'
+                'a6 a7 a8 a9'
+                'a10 a10 a10 a10';
+            gap: 5px;
+        }
+        .part3 div:nth-child(1) {grid-area: a1;}
+        .part3 div:nth-child(2) {grid-area: a2;}
+        .part3 div:nth-child(3) {grid-area: a3;}
+        .part3 div:nth-child(4) {grid-area: a4;}
+        .part3 div:nth-child(5) {grid-area: a5;}
+        .part3 div:nth-child(6) {grid-area: a6;}
+        .part3 div:nth-child(7) {grid-area: a7;}
+        .part3 div:nth-child(8) {grid-area: a8;}
+        .part3 div:nth-child(9) {grid-area: a9;}
+        .part3 div:nth-child(10) {grid-area: a10;}
+
+        .part3 div {
+            background-size: cover;         /* 背景占满 */
+            background-attachment: fixed;
+            display: flex;                  /* 设置flex */
+            justify-content: center;        /* flex水平居中 */
+            align-items: center;            /* flex垂直居中 */
+            flex-direction: column;         /* 竖直排列 */
+        }
+
+        .part3>div {
+            transition: all 0.5s;
+            /* 设置过渡动画 时长0.5秒*/
+        }
+        .part3 div:hover {
+            opacity: 0.6;
+            transform: scale(0.90);
+            cursor: pointer;
+        }
+
+        .part3_button {
+            background: url("images/background.png");
+            color: white;
+            font-family: STKaiti;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="head">
+        <div class="title">
+            感受中国传统戏曲文化
+        </div>
+    </div>
+
+    <div class="tag">
+        <div>
+            <a href="">
+                <img src="images\白1曹操.png" style="width: 91px;height: 92px;">
+                <p>跳转1</p>
+            </a>
+        </div>
+        <div>
+            <a href="">
+                <img src="images\金银1（金）道德真君.png" style="width: 91px;height: 92px;">
+                <p>跳转2</p>
+            </a>
+        </div>
+        <div>
+            <a href="">
+                <img src="images\绿2彭越.png" style="width: 91px;height: 92px;">
+                <p>跳转3</p>
+            </a>
+        </div>
+        <div>
+            <a href="">
+                <img src="images\红2吴汉.png" style="width: 91px;height: 92px;">
+                <p>跳转4</p>
+            </a>
+        </div>
+        <div>
+            <a href="">
+                <img src="images\白2严嵩.png" style="width: 91px;height: 92px;">
+                <p>跳转5</p>
+            </a>
+
+        </div>
+    </div>
+
+    <div class="part1">
+        <div class="part1_scroll">
+            <ul>
+                <li><img src="images\白1曹操.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\蓝2窦尔敦.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\红1关羽.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\黄1典韦.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\金银1（金）道德真君.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\绿1程咬金.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\白1曹操.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\蓝2窦尔敦.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\红1关羽.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\黄1典韦.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\金银1（金）道德真君.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\绿1程咬金.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\白1曹操.png" style="width: 133px;height: 200px;"></li>
+                <li><img src="images\蓝2窦尔敦.png" style="width: 133px;height: 200px;"></li>
+            </ul>
+        </div>
+
+        <div class="part1_box">
+            <div class="part1_box_imagebg">
+                <img src="images\白1曹操.png" style="width: 150px;height: 200px;">
+                <div class="part1_box_imagebutton">
+                    <p>点击了解</p>
+                </div>
+            </div>
+
+            <div class="part1_box_imagebg">
+                <img src="images\黑1包公.png" style="width: 150px;height: 200px;">
+                <div class="part1_box_imagebutton">
+                    <p>点击了解</p>
+                </div>
+            </div>
+
+            <div class="part1_box_imagebg">
+                <img src="images\红1关羽.png" style="width: 150px;height: 200px;">
+                <div class="part1_box_imagebutton">
+                    <p>点击了解</p>
+                </div>
+            </div>
+
+            <div class="part1_box_imagebg">
+                <img src="images\黄1典韦.png" style="width: 150px;height: 200px;">
+                <div class="part1_box_imagebutton">
+                    <p>点击了解</p>
+                </div>
+            </div>
+
+            <div class="part1_box_centercontainer">
+                <div class="part1_box_centerbg">
+                    <div class="part1_box_centerbutton">
+                        随机选择
+                    </div>
+                </div>
+            </div>
+
+            <div class="part1_box_imagebg">
+                <img src="images\金银1（金）道德真君.png" style="width: 150px;height: 200px;">
+                <div class="part1_box_imagebutton">
+                    <p>点击了解</p>
+                </div>
+            </div>
+
+            <div class="part1_box_imagebg">
+                <img src="images\蓝1马武.png" style="width: 150px;height: 200px;">
+                <div class="part1_box_imagebutton">
+                    <p>点击了解</p>
+                </div>
+            </div>
+
+            <div class="part1_box_imagebg">
+                <img src="images\绿1程咬金.png" style="width: 150px;height: 200px;">
+                <div class="part1_box_imagebutton">
+                    <p>点击了解</p>
+                </div>
+            </div>
+
+            <div class="part1_box_imagebg">
+                <img src="images\黄2姬僚.png" style="width: 150px;height: 200px;">
+                <div class="part1_box_imagebutton">
+                    <p>点击了解</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="part2">
+        <div class="part2_image">
+            <img src="images\白1曹操.png">
+            <img src="images\红1关羽.png">
+            <img src="images\绿1程咬金.png">
+            <img src="images\金银2（银）云中子.png">
+            <img src="images\蓝2窦尔敦.png">
+        </div>
+    </div>
+
+
+    <div class="part3">
+        <div class="part3_button">
+            风雨犹祝，山海同欢，是承天地之佑
+        </div>
+        <div class="part3_button">
+            星移斗转
+        </div>
+        <div class="part3_button">
+            沧海桑田
+        </div>
+        <div class="part3_button">
+            烟火
+        </div>
+        <div class="part3_button">
+            人间依旧
+        </div>
+        <div class="part3_button">
+            功名在我
+        </div>
+        <div class="part3_button">
+            百岁千秋
+        </div>
+        <div class="part3_button">
+            毋忘
+        </div>
+        <div class="part3_button">
+            秉烛夜游
+        </div>
+        <div class="part3_button">
+            今古诸事，激荡中流，宏图待看新秀
+        </div>
+    </div>
+</body>
+
+</html>
